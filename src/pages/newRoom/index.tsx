@@ -1,0 +1,40 @@
+// import { useAuth } from '../../hooks/useAuth';
+
+import { Link } from 'react-router-dom';
+
+import illustrationImg from '../../assets/images/illustration.svg';
+import logoImg from '../../assets/images/logo.svg'
+
+import { Button } from '../../components/button';
+
+import '../home/styles.scss';
+
+export function NewRoom() {
+  // const { user } = useAuth();
+
+  return (
+    <div id="page-auth">
+      <aside>
+        <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas" />
+        <strong>Crie salas e responda perguntas ao vivo</strong>
+        <p>Tire duvidas, converse com sua audiência de forma rápida e em tempo real</p>
+      </aside>
+      <main>
+        <div className="main-content">
+          <img src={logoImg} alt="Letmeask" />
+          <h2>Criar uma nova sala</h2>
+          <form>
+            <input
+              type="text"
+              placeholder="Nome da sala"
+            />
+            <Button type="submit">
+              Criar sala
+            </Button>
+          </form>
+          <p>Quer entrar em uma sala existente? <Link to="/">clique aqui</Link></p>
+        </div>
+      </main>
+    </div>
+  );
+}
