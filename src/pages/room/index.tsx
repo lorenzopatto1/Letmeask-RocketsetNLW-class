@@ -6,9 +6,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import logoImg from '../../assets/images/logo.svg';
 import emptyQuestionsImg from '../../assets/images/empty-questions.svg'
 
-import { Button } from '../../components/Button';
-import { Question } from '../../components/Question';
-import { RoomCode } from '../../components/RoomCode';
+import { Button } from '../../components/button';
+import { Question } from '../../components/question';
+import { RoomCode } from '../../components/roomCode';
 import { useAuth } from '../../hooks/useAuth';
 import { useRoom } from '../../hooks/useRoom';
 import { database } from '../../services/firebase';

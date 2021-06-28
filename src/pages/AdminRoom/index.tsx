@@ -8,16 +8,16 @@ import deleteImg from '../../assets/images/delete.svg';
 import checkImg from '../../assets/images/check.svg';
 import answerImg from '../../assets/images/answer.svg';
 
-import { Button } from '../../components/Button';
+import { Button } from '../../components/button';
 import { useRoom } from '../../hooks/useRoom';
-import { Question } from '../../components/Question';
-import { RoomCode } from '../../components/RoomCode';
+import { Question } from '../../components/question';
+import { RoomCode } from '../../components/roomCode';
 import { database } from '../../services/firebase';
 
 // import { useAuth } from '../../hooks/useAuth';
 import Modal from 'react-modal';
 
-import '../Room/styles.scss';
+import '../room/styles.scss';
 
 type RoomParams = {
   id: string;
