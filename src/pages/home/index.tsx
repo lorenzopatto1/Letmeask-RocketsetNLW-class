@@ -1,12 +1,13 @@
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import toast, { Toaster } from 'react-hot-toast';
 
 import illustrationImg from '../../assets/images/illustration.svg';
 import logoImg from '../../assets/images/logo.svg'
 import googleIconImg from '../../assets/images/google-icon.svg'
- 
-import { Button } from '../../components/button';
+
+import { Button } from '../../components/Button';
 import { database } from '../../services/firebase';
 
 import './styles.scss';
@@ -20,7 +21,7 @@ export function Home() {
     if (!user) {
       await signInWithGoogle();
     }
-   
+
     history.push('/rooms/new')
   }
 
@@ -34,7 +35,12 @@ export function Home() {
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      alert('Room does not exists')
+      toast.error('Room does not exists')
+      return;
+    }
+
+    if (roomRef.val().endedAt) {
+      toast.error('This room already closed.');
       return;
     }
 
@@ -67,6 +73,7 @@ export function Home() {
               Entrar na sala
             </Button>
           </form>
+          <Toaster />
         </div>
       </main>
     </div>
