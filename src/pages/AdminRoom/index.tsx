@@ -7,6 +7,7 @@ import emptyQuestionsImg from '../../assets/images/empty-questions.svg'
 import deleteImg from '../../assets/images/delete.svg';
 import checkImg from '../../assets/images/check.svg';
 import answerImg from '../../assets/images/answer.svg';
+import deleteRoomImg from '../../assets/images/deleteRoom.svg'
 
 import { Button } from '../../components/button';
 import { useRoom } from '../../hooks/useRoom';
@@ -30,10 +31,11 @@ export function AdminRoom() {
   const roomId = params.id;
 
   const [questionIdModalOpen, setQuestionIdModalOpen] = useState<string | undefined>();
+  const [endRoomModalOpen, setEndRoomModalOpen] = useState(false);
 
   const { title, questions } = useRoom(roomId);
 
-  async function handleEndRoom() {
+  async function handleConfirmEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
       endedAt: new Date(),
 
@@ -63,7 +65,36 @@ export function AdminRoom() {
           <img src={logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+            <Button isOutlined onClick={() => setEndRoomModalOpen(true)}>Encerrar sala</Button>
+            <Modal
+              isOpen={endRoomModalOpen}
+              onRequestClose={() => setEndRoomModalOpen(false)}
+              className="modal"
+              overlayClassName="overlay"
+            >
+              <div className="modal-content">
+                <img src={deleteRoomImg} alt="Deletar Sala" />
+                <p>Encerrar sala</p>
+                <span>Tem certeza que você deseja encerrar esta sala?</span>
+
+                <div>
+                  <Button
+                    onClick={() => setEndRoomModalOpen(false)}
+                    leftModalButton
+                  >
+                    Cancelar
+                  </Button>
+
+                  <Button
+                    onClick={handleConfirmEndRoom}
+                    rightModalButton
+                  >
+                    Sim, encerrar
+                  </Button>
+                </div>
+
+              </div>
+            </Modal>
           </div>
         </div>
       </header>
@@ -85,23 +116,23 @@ export function AdminRoom() {
                     isAnswered={question.isAnswered}
                     isHighlighted={question.isHighlighted}
                   >
-                   {!question.isAnswered && (
-                     <>
-                      <button
-                      type="button"
-                      onClick={() => handleCheckQuestionAsAnswered(question.id)}
-                    >
-                      <img src={checkImg} alt="Marcar pergunta como respondida" />
-                    </button>
+                    {!question.isAnswered && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                        >
+                          <img src={checkImg} alt="Marcar pergunta como respondida" />
+                        </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleHighlightedQuestion(question.id)}
-                    >
-                      <img src={answerImg} alt=" Dar destaque à pergunta" />
-                    </button>
-                    </>
-                   )}
+                        <button
+                          type="button"
+                          onClick={() => handleHighlightedQuestion(question.id)}
+                        >
+                          <img src={answerImg} alt=" Dar destaque à pergunta" />
+                        </button>
+                      </>
+                    )}
 
                     <button
                       type="button"
@@ -129,13 +160,13 @@ export function AdminRoom() {
                       <div>
                         <Button
                           onClick={() => setQuestionIdModalOpen(undefined)}
-                          className="close-modal-button"
+                          leftModalButton
                         >
                           Cancelar
                         </Button>
 
                         <Button
-                          className="remove-question-button"
+                          rightModalButton
                           onClick={() => handleDeleteQuestion(question.id)}
                         >
                           Sim, excluir

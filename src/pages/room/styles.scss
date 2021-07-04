@@ -158,27 +158,6 @@
 
 // Modal-style
 
-@mixin button-style() {
-  height: 50px;
-  border-radius: 8px;
-  font-weight: 500;
-  color: #737380;
-  padding: 0 32px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-  border: 0;
-
-  transition: filter 0.2s;
-
-  &:hover {
-    filter: brightness(0.9);
-  }
-}
-
 .modal {
   width: 590px;
   height: 362px;
@@ -192,7 +171,7 @@
     flex-direction: column;
     padding: 64px 0px;
 
-    svg {
+    svg, img {
       margin-bottom: 24px;
     }
 
@@ -213,17 +192,6 @@
     div {
       display: flex;
       gap: 8px;
-
-      .close-modal-button {
-        @include button-style();
-        background: #dbdcdd;
-      }
-
-      .remove-question-button {
-        @include button-style();
-        background: #ff0000;
-        color: #fefefe;
-      }
     }
   }
 }

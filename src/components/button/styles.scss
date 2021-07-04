@@ -25,6 +25,15 @@
     color: #001AFF;
   }
 
+  &.left-modal-button {
+    background: #DBDCDD;
+    color: #737380;
+  }
+
+  &.right-modal-button {
+    background: #FF0000;
+  }
+
   &:not(:disabled):hover {
     filter: brightness(0.9);
   }
